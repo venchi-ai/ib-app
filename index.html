@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="IB Command">
-<meta name="application-name" content="IB Command">
+<meta name="apple-mobile-web-app-title" content="IB Manager">
+<meta name="application-name" content="IB Manager">
 <meta name="theme-color" content="#15130e">
 <meta name="color-scheme" content="dark">
 <meta name="format-detection" content="telephone=no">
 <meta name="robots" content="noindex, nofollow">
-<title>IB Command Center</title>
+<title>IB Manager</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -195,7 +195,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stro
 
 <div id="splash">
   <svg class="mk" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="url(#mkg)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
-  <div class="name">IB Command Center</div>
+  <div class="name">IB Manager</div>
 </div>
 
 <div id="lock" class="glow" hidden>
@@ -223,7 +223,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stro
 
 <script>
 "use strict";
-const STAMP="20261116125415";
+const STAMP="20261116130819";
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};

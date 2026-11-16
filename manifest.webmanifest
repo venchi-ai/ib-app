@@ -1,6 +1,6 @@
 {
- "name": "IB Command Center",
- "short_name": "IB Command",
+ "name": "IB Manager",
+ "short_name": "IB Manager",
  "id": "./",
  "start_url": "./",
  "scope": "./",
