@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IB Command">
+<meta name="application-name" content="IB Command">
+<meta name="theme-color" content="#15130e">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>IB Command Center</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1320x2868.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1290x2796.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1260x2736.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1206x2622.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1179x2556.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1284x2778.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1170x2532.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1242x2688.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1125x2436.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/launch-828x1792.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/launch-750x1334.png">
+<style>
+:root{
+  --bg:#15130e; --ink:#f5f1e6; --ink-2:#d6cdb8; --ink-3:#a39b88; --line:rgba(255,255,255,.08);
+  --tile:rgba(255,255,255,.06); --tile-2:rgba(255,255,255,.10); --paper:#ece4d2; --paper-ink:#15130e;
+  --sand:#b59e72; --stone:#d8c9a3; --bronze:#665736; --sage:#88907a; --mauve:#8e6e7a; --clay:#b0806f;
+  --brick:#a6584b; --rust:#b8774e; --mustard:#c9a646; --moss:#8a9a63;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+  --sl:env(safe-area-inset-left,0px); --sr:env(safe-area-inset-right,0px);
+  --bar:44px; --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);overflow:hidden;overscroll-behavior:none;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;touch-action:manipulation}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.glow{background:
+  radial-gradient(1100px 620px at 8% -12%,rgba(181,158,114,.34),transparent 62%),
+  radial-gradient(900px 520px at 108% 4%,rgba(136,144,122,.22),transparent 60%),
+  radial-gradient(900px 600px at 50% 118%,rgba(102,87,54,.30),transparent 60%),var(--bg)}
+
+/* Splash */
+#splash{position:fixed;inset:0;z-index:40;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% calc(50% - 24px),rgba(181,158,114,.16),rgba(181,158,114,0) 55vmax),var(--bg);
+  transition:opacity .45s ease .05s}
+#splash .mk{position:absolute;left:50%;top:calc(50% - 24px);width:112px;height:112px;margin:-56px 0 0 -56px;transition:transform .55s var(--ease)}
+#splash .name{position:absolute;left:0;right:0;top:calc(50% + 50px);text-align:center;font-size:15px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s var(--ease)}
+#splash.in .name{opacity:.9;transform:none}
+#splash.out{opacity:0;pointer-events:none}
+#splash.out .mk{transform:scale(1.06)}
+.mk .arc{stroke-dasharray:0 251.33;transition:stroke-dasharray .9s var(--ease)}
+.mk.p1 .arc{stroke-dasharray:120 251.33}
+.mk.p2 .arc{stroke-dasharray:188.5 251.33}
+.mk.p3 .arc{stroke-dasharray:251.33 251.33;transition-duration:.45s}
+
+/* Lock */
+#lock{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  padding:calc(var(--st) + 24px) 28px calc(var(--sb) + 24px)}
+#lock[hidden]{display:none}
+#lock .mk{width:84px;height:84px}
+#lock h1{font-size:24px;font-weight:300;margin:6px 0 0;letter-spacing:-.2px}
+#lock p{margin:0;color:var(--ink-3);font-size:14px;text-align:center;line-height:1.45;max-width:300px}
+#lock form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin-top:6px}
+#lock input{-webkit-user-select:text;user-select:text;width:100%;font:400 19px/1.2 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em;text-align:center;
+  color:var(--ink);background:var(--tile);border:1px solid var(--line);border-radius:16px;padding:16px 14px;outline:none}
+#lock input:focus{border-color:rgba(181,158,114,.7);background:var(--tile-2)}
+#lock .go{background:linear-gradient(135deg,#d8c9a3,#b59e72 55%,#8f7c55);color:#15130e;border-radius:16px;padding:15px;font-size:17px;font-weight:500}
+#lock .go:active{transform:scale(.98)}
+#lock .err{color:#e2a08f;min-height:20px}
+.shake{animation:shake .42s}
+@keyframes shake{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+
+/* Screens */
+.screen{position:fixed;inset:0;will-change:transform}
+#hub{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;
+  padding:calc(var(--st) + 14px) calc(var(--sr) + 18px) calc(var(--sb) + 28px) calc(var(--sl) + 18px);transition:transform .5s var(--ease),filter .5s var(--ease)}
+#hub.back{transform:translateX(-28%);filter:brightness(.62)}
+#hub.drag,#stage.drag{transition:none!important}
+#stage{transform:translateX(100%);transition:transform .5s var(--ease);box-shadow:-18px 0 40px rgba(0,0,0,.45);background:var(--bg);visibility:hidden}
+#stage.on{transform:none;visibility:visible}
+#stage.moving{visibility:visible}
+
+/* Hub */
+.hero{padding:10px 4px 18px}
+.hero .date{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.hero h1{margin:4px 0 0;font-size:36px;font-weight:300;letter-spacing:-.6px;line-height:1.1}
+.card{border-radius:24px;padding:18px 18px 18px}
+.glance{background:var(--paper);color:var(--paper-ink);margin-bottom:14px;display:flex;flex-direction:column;gap:12px}
+.glance .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin:0}
+.glance .big{font-size:21px;line-height:1.25;margin:2px 0 0;font-weight:500}
+.glance .meta{font-size:14px;opacity:.7;margin:3px 0 0}
+.glance .row{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.glance .days{font-size:46px;font-weight:200;line-height:.9;letter-spacing:-1.5px;white-space:nowrap}
+.glance .days small{font-size:14px;letter-spacing:0;margin-left:3px;opacity:.7}
+.glance .stats{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:13px;padding:6px 11px;border-radius:999px;background:rgba(21,19,14,.08)}
+.pill.hot{background:rgba(166,88,75,.16);color:#7c3a2f}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;text-align:left;border-radius:24px;padding:16px;min-height:136px;display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--tile);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  transition:transform .35s var(--ease),background .2s}
+.tile.wide{grid-column:1 / -1;min-height:0;flex-direction:row;align-items:center;gap:14px;justify-content:flex-start}
+.tile:active,.tile.press{transform:scale(.965);background:var(--tile-2)}
+.tile .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:0 0 auto}
+.tile .tt{font-size:17px;margin:0;line-height:1.2}
+.tile .sub{font-size:13px;color:var(--ink-3);margin:4px 0 0;line-height:1.3}
+.tile .now{flex:1;min-width:0}
+.tile .now .tt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .bar{height:4px;border-radius:2px;background:rgba(255,255,255,.08);margin-top:9px;overflow:hidden}
+.tile .bar i{display:block;height:100%;border-radius:2px;background:var(--sand)}
+.tile .chev{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.foot{margin:22px 4px 0;font-size:12px;color:var(--ink-3);line-height:1.5}
+.install{display:flex;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--line);border-radius:18px;padding:12px 14px;margin:0 0 14px;font-size:14px;color:var(--ink-2)}
+.install b{font-weight:500;color:var(--ink)}
+.install .x{margin-left:auto;color:var(--ink-3);padding:4px}
+.rise{opacity:0;transform:translateY(14px)}
+.ready .rise{animation:rise .7s var(--ease) both}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* Stage / navigation bar */
+.navbar{position:absolute;left:0;right:0;top:0;z-index:5;height:calc(var(--st) + var(--bar));padding:var(--st) calc(var(--sr) + 8px) 0 calc(var(--sl) + 6px);
+  display:flex;align-items:center;background:rgba(21,19,14,.72);-webkit-backdrop-filter:saturate(170%) blur(22px);backdrop-filter:saturate(170%) blur(22px);
+  border-bottom:.5px solid rgba(255,255,255,.08);transition:filter .25s}
+.navbar.dim{filter:brightness(.5)}
+.navbar .back{display:flex;align-items:center;gap:2px;color:var(--stone);font-size:17px;height:44px;padding:0 10px 0 4px;z-index:2}
+.navbar .back svg{width:24px;height:24px;stroke-width:2.1}
+.navbar .back:active{opacity:.45}
+.navbar .title{position:absolute;left:96px;right:96px;bottom:0;height:44px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.host{position:absolute;inset:0}
+.host iframe{position:absolute;inset:0;border:0;width:1px;min-width:100%;height:100%;background:var(--bg);display:block}
+.edge{position:absolute;left:0;top:calc(var(--st) + var(--bar));bottom:0;width:22px;z-index:4}
+.spin{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px;border-radius:50%;border:2.5px solid rgba(255,255,255,.12);border-top-color:var(--sand);animation:rot .8s linear infinite;opacity:0;transition:opacity .2s}
+.spin.on{opacity:1}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* Timetable (native view) */
+.tt-view{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;
+  padding:calc(var(--st) + var(--bar) + 16px) calc(var(--sr) + 18px) calc(var(--sb) + 30px) calc(var(--sl) + 18px)}
+.tt-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:4px 4px 16px}
+.tt-head h2{margin:0;font-size:32px;font-weight:300;letter-spacing:-.5px;line-height:1.05}
+.tt-head p{margin:5px 0 0;color:var(--ink-3);font-size:14px}
+.seg{display:flex;align-items:center;gap:4px;background:var(--tile);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{height:32px;min-width:32px;padding:0 10px;border-radius:999px;font-size:14px;color:var(--ink-2);display:grid;place-items:center}
+.seg button:active{background:var(--tile-2)}
+.seg svg{width:16px;height:16px;stroke-width:2}
+.week{display:inline-block;font-size:12px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;background:rgba(181,158,114,.18);color:var(--stone);margin-left:6px;vertical-align:2px}
+.lessons{display:flex;flex-direction:column;gap:8px}
+.lesson{display:grid;grid-template-columns:54px 4px 1fr;gap:12px;align-items:stretch;padding:13px 14px;border-radius:18px;background:var(--tile);border:1px solid var(--line);position:relative;overflow:hidden}
+.lesson .t{font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums;line-height:1.35}
+.lesson .t small{display:block;color:var(--ink-3);font-size:12px}
+.lesson .c{border-radius:2px}
+.lesson .n{font-size:16px;line-height:1.3;align-self:center}
+.lesson .n small{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.lesson.now{background:rgba(181,158,114,.14);border-color:rgba(181,158,114,.38)}
+.lesson.past{opacity:.48}
+.lesson .p{position:absolute;left:0;bottom:0;height:3px;background:var(--sand)}
+.gap{font-size:12px;color:var(--ink-3);padding:0 0 0 70px;letter-spacing:.02em}
+.empty{padding:34px 18px;text-align:center;color:var(--ink-3);font-size:15px;line-height:1.5;border-radius:20px;background:var(--tile);border:1px solid var(--line)}
+.slide-l{animation:sl .32s var(--ease)}
+.slide-r{animation:sr .32s var(--ease)}
+@keyframes sl{from{opacity:0;transform:translateX(26px)}}
+@keyframes sr{from{opacity:0;transform:translateX(-26px)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="mkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8c9a3"/><stop offset=".55" stop-color="#b59e72"/><stop offset="1" stop-color="#8f7c55"/></linearGradient>
+    <symbol id="ic-dash" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+    <symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M14 14h2M8 17h2"/></symbol>
+    <symbol id="ic-study" viewBox="0 0 24 24"><path d="M4.5 5.5A2.5 2.5 0 0 1 7 3h12.5v15H7a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M4.5 20.5A2.5 2.5 0 0 0 7 21h12.5M9 7.5h6"/></symbol>
+    <symbol id="ic-grade" viewBox="0 0 24 24"><path d="M5 20v-6M10 20V9M15 20v-8M20 20V4"/></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="ic-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="ic-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="ic-share" viewBox="0 0 24 24"><path d="M12 15V3.5M8 7.5l4-4 4 4"/><path d="M8 11H6.5A1.5 1.5 0 0 0 5 12.5v7A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5H16"/></symbol>
+    <symbol id="mark" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(245,241,230,.10)" stroke-width="5"/>
+      <path d="M37 36V64M46 36V64M46 36H55a6.5 6.5 0 0 1 0 13H46M46 49H56a7.5 7.5 0 0 1 0 15H46" fill="none" stroke="#f5f1e6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="splash">
+  <svg class="mk" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/><circle class="arc" cx="50" cy="50" r="40" fill="none" stroke="url(#mkg)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
+  <div class="name">IB Command Center</div>
+</div>
+
+<div id="lock" class="glow" hidden>
+  <svg class="mk" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/><circle cx="50" cy="50" r="40" fill="none" stroke="url(#mkg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="188.5 251.33" transform="rotate(-90 50 50)"/></svg>
+  <h1>Welcome</h1>
+  <p id="lockmsg">Enter your passcode once to unlock your deadlines and grades on this iPhone.</p>
+  <form id="lockform" autocomplete="off">
+    <input id="code" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Passcode" aria-label="Passcode">
+    <button class="go" type="submit" id="unlock">Unlock</button>
+    <p class="err" id="lockerr" role="alert"></p>
+  </form>
+</div>
+
+<main id="hub" class="screen glow" aria-label="Home"></main>
+
+<section id="stage" class="screen" aria-label="Page">
+  <div class="host" id="host"></div>
+  <div class="spin" id="spin"></div>
+  <div class="edge" id="edge"></div>
+  <header class="navbar" id="navbar">
+    <button class="back" id="back" type="button" aria-label="Back to Home"><svg class="i"><use href="#ic-back"/></svg><span>Home</span></button>
+    <div class="title" id="title"></div>
+  </header>
+</section>
+
+<script>
+"use strict";
+const STAMP="20261116125415";
+const $=s=>document.querySelector(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const ub64=u=>{let s="";u.forEach(c=>s+=String.fromCharCode(c));return btoa(s)};
+const standalone=()=>window.navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;
+
+const PAGES={
+  timetable:{title:"Timetable",native:true},
+  dashboard:{title:"Dashboard"},
+  calendar:{title:"Deadline Calendar"},
+  study:{title:"Study Calendar"},
+  grades:{title:"Grade Tracker"}
+};
+const PALETTE=[[/math/i,"#b59e72"],[/econ/i,"#b8774e"],[/global pol|\bgp\b/i,"#a6584b"],[/english/i,"#8e6e7a"],[/langcul|lang.*cul/i,"#b0806f"],[/\bess\b|environmental/i,"#8a9a63"],[/\btok\b/i,"#c9a646"]];
+const colorOf=s=>{for(const [re,c] of PALETTE) if(re.test(String(s))) return c; return "#a39b88"};
+
+let VAULT=null, DATA=null, current=null, busy=false;
+
+/* ---------- dates ---------- */
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parseYMD=s=>{const [y,m,d]=String(s).slice(0,10).split("-").map(Number);return new Date(y,m-1,d)};
+const dayDiff=(a,b)=>Math.round((parseYMD(ymd(b))-parseYMD(ymd(a)))/864e5);
+const isoWd=d=>(d.getDay()+6)%7+1;
+const mins=s=>{const [h,m]=String(s).split(":").map(Number);return h*60+m};
+const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const longDate=d=>DAYS[d.getDay()]+" "+d.getDate()+" "+MONTHS[d.getMonth()];
+const shortDate=d=>DAYS[d.getDay()].slice(0,3)+" "+d.getDate()+" "+MONTHS[d.getMonth()].slice(0,3);
+
+/* ---------- crypto ---------- */
+async function deriveKey(pass,kdf){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:b64(kdf.salt),iterations:kdf.iter},base,256);
+  return new Uint8Array(bits);
+}
+async function openVault(v,raw){
+  const key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
+  const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(v.iv)},key,b64(v.ct));
+  const stream=new Blob([plain]).stream().pipeThrough(new DecompressionStream("gzip"));
+  return JSON.parse(await new Response(stream).text());
+}
+async function fetchVault(fresh){
+  const r=await fetch("data/vault.json"+(fresh?"?t="+Date.now():""),{cache:fresh?"no-store":"default"});
+  if(!r.ok) throw new Error("vault "+r.status);
+  return r.json();
+}
+async function unlockWithStored(v){
+  const k=store.get("ibAppKey"); if(!k) return null;
+  try{return await openVault(v,b64(k))}catch(e){return null}
+}
+
+/* ---------- done ticks shared with the Dashboard ---------- */
+function doneMap(){try{return JSON.parse(store.get("ibDone")||"{}")||{}}catch(e){return {}}}
+function openTasks(){
+  const done=doneMap(), today=new Date();
+  return (DATA.tasks||[]).filter(t=>t.status!=="Done"&&!done[t.s+"|"+String(t.t).toLowerCase()]&&t.due&&dayDiff(today,parseYMD(t.due))>=0)
+    .sort((a,b)=>a.due<b.due?-1:a.due>b.due?1:0);
+}
+
+/* ---------- timetable ---------- */
+function weekOf(d){
+  const tt=DATA.timetable; if(!tt||!tt.weekAMonday) return "A";
+  const a=parseYMD(tt.weekAMonday); const am=new Date(a); am.setDate(a.getDate()-(isoWd(a)-1));
+  const dm=parseYMD(ymd(d)); dm.setDate(dm.getDate()-(isoWd(dm)-1));
+  const w=Math.floor(Math.round((dm-am)/864e5)/7); return ((w%2)+2)%2===0?"A":"B";
+}
+function lessonsOn(d){
+  const tt=DATA.timetable; if(!tt) return [];
+  if((tt.noSchoolDates||[]).includes(ymd(d))) return [];
+  const wk=weekOf(d), wd=isoWd(d);
+  return (tt.entries||[]).filter(e=>e.weekday===wd&&String(e.week).toUpperCase().includes(wk)).sort((a,b)=>mins(a.start)-mins(b.start));
+}
+const lessonName=t=>/SL\/HL/i.test(t)?t:t;
+function nowNext(){
+  const now=new Date(), m=now.getHours()*60+now.getMinutes();
+  const ls=lessonsOn(now);
+  const cur=ls.find(l=>mins(l.start)<=m&&m<mins(l.end));
+  const nxt=ls.find(l=>mins(l.start)>m);
+  return {ls,cur,nxt,m};
+}
+
+/* ---------- hub ---------- */
+function greet(){const h=new Date().getHours();return h<5?"Good night":h<12?"Good morning":h<18?"Good afternoon":"Good evening"}
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const icon=(id,color)=>`<span class="ic" style="background:${color}26;color:${color}"><svg class="i"><use href="#${id}"/></svg></span>`;
+
+function renderHub(animate=true){
+  const hub=$("#hub"); const y=hub.scrollTop; hub.innerHTML="";
+  const today=new Date();
+  const wd=isoWd(today);
+  const wk=weekOf(wd>=6?new Date(today.getTime()+(8-wd)*864e5):today);
+  const head=el("header","hero rise",`<p class="date">${longDate(today)} · Week ${wk}${wd>=6?" next":""}</p><h1>${greet()}</h1>`);
+  hub.append(head);
+
+  if(!standalone()&&store.get("ibHideInstall")!=="1"){
+    const ins=el("div","install rise",`<svg class="i" style="flex:0 0 auto;color:var(--stone)"><use href="#ic-share"/></svg><span>Tap <b>Share</b>, then <b>Add to Home Screen</b> to install this app.</span><button class="x" type="button" aria-label="Dismiss">Close</button>`);
+    ins.querySelector(".x").onclick=()=>{store.set("ibHideInstall","1");ins.remove()};
+    hub.append(ins);
+  }
+
+  // Glance card
+  const open=openTasks(); const nxt=open[0];
+  const week=open.filter(t=>dayDiff(today,parseYMD(t.due))<=7);
+  const heavy=week.filter(t=>t.cat==="Summative"||t.weight==="Heavy");
+  const g=el("section","card glance rise");
+  if(nxt){
+    const dd=dayDiff(today,parseYMD(nxt.due));
+    const when=dd===0?"Today":dd===1?"Tomorrow":shortDate(parseYMD(nxt.due));
+    g.innerHTML=`<p class="lbl">Next deadline</p>
+      <div class="row"><div style="min-width:0"><p class="big">${esc(nxt.t)}</p><p class="meta">${esc(nxt.s)} · ${when}${nxt.cat?" · "+esc(nxt.cat):""}</p></div>
+      <div class="days">${dd===0?"Today":dd}${dd===0?"":`<small>${dd===1?"day":"days"}</small>`}</div></div>
+      <div class="stats"><span class="pill">${week.length} due in 7 days</span>${heavy.length?`<span class="pill hot">${heavy.length} summative</span>`:""}<span class="pill">${open.length} open</span></div>`;
+  } else {
+    g.innerHTML=`<p class="lbl">Deadlines</p><p class="big">Nothing due. Enjoy the break.</p>`;
+  }
+  g.onclick=()=>open_("dashboard");
+  hub.append(g);
+
+  // Tiles
+  const grid=el("nav","grid");
+  const nn=nowNext();
+  let ttTitle, ttSub, prog=null;
+  if(wd>=6){ttTitle="Weekend";ttSub="Week "+wk+" starts Monday";}
+  else if(nn.cur){ttTitle=lessonName(nn.cur.title);ttSub="Now · until "+nn.cur.end+(nn.nxt?" · next "+nn.nxt.title:"");prog=(nn.m-mins(nn.cur.start))/(mins(nn.cur.end)-mins(nn.cur.start));}
+  else if(nn.nxt){ttTitle=lessonName(nn.nxt.title);ttSub="Next at "+nn.nxt.start+" · Week "+wk;}
+  else {ttTitle="Timetable";ttSub=nn.ls.length?"School is over for today":"No lessons today";}
+  const t1=el("button","tile wide rise",`${icon("ic-clock","#c9a646")}<div class="now"><p class="tt">${esc(ttTitle)}</p><p class="sub">${esc(ttSub)}</p>${prog!=null?`<div class="bar"><i style="width:${Math.round(prog*100)}%"></i></div>`:""}</div><svg class="i chev"><use href="#ic-next"/></svg>`);
+  t1.dataset.go="timetable"; grid.append(t1);
+
+  const nextCal=nxt?"Next: "+shortDate(parseYMD(nxt.due)):"All clear";
+  [["dashboard","ic-dash","#b59e72","Dashboard",week.length+" due in 7 days"],
+   ["calendar","ic-cal","#b8774e","Deadline Calendar",nextCal],
+   ["study","ic-study","#8a9a63","Study Calendar","Your study plan"],
+   ["grades","ic-grade","#8e6e7a","Grade Tracker","Target 7 in every subject"]].forEach(([id,ic,c,t,s])=>{
+    const b=el("button","tile rise",`${icon(ic,c)}<div><p class="tt">${t}</p><p class="sub">${esc(s)}</p></div>`);
+    b.dataset.go=id; grid.append(b);
+  });
+  hub.append(grid);
+  grid.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>open_(b.dataset.go));
+
+  const synced=String(DATA.synced||"").replace(/^Last synced:\s*/,"");
+  hub.append(el("p","foot rise",`Updated ${esc(synced||DATA.built||"")}.<br>Ticks and study sessions are saved on this iPhone. Nothing here changes ManageBac.`));
+  if(animate) hub.querySelectorAll(".rise").forEach((e,i)=>e.style.animationDelay=(i*55)+"ms");
+  else { hub.querySelectorAll(".rise").forEach(e=>e.classList.remove("rise")); hub.scrollTop=y; }
+}
+
+/* ---------- pages ---------- */
+function insets(){
+  const p=el("div");p.style.cssText="position:fixed;top:0;left:0;visibility:hidden;padding:var(--st) 0 var(--sb)";
+  document.body.append(p);const cs=getComputedStyle(p);const r={top:parseFloat(cs.paddingTop)||0,bottom:parseFloat(cs.paddingBottom)||0};p.remove();return r;
+}
+function mountFrame(id){
+  return new Promise(res=>{
+    const f=document.createElement("iframe");
+    f.title=PAGES[id].title;
+    let done=false;
+    const finish=()=>{if(done)return;done=true;
+      try{const ins=insets(),d=f.contentDocument.documentElement;
+        d.style.setProperty("--app-top",(ins.top+44)+"px");d.style.setProperty("--app-bottom",ins.bottom+"px");}catch(e){}
+      res(f)};
+    f.srcdoc=DATA.pages[id];
+    f.addEventListener("load",()=>{try{if(f.contentDocument&&f.contentDocument.URL==="about:srcdoc")finish()}catch(e){finish()}});
+    setTimeout(finish,1200);
+    $("#host").append(f);
+  });
+}
+function renderTimetable(dir){
+  const host=$("#host");
+  let v=host.querySelector(".tt-view");
+  if(!v){v=el("div","tt-view glow");host.append(v);attachDaySwipe(v);}
+  const d=ttDay;
+  const ls=lessonsOn(d); const today=new Date(); const isToday=ymd(d)===ymd(today);
+  const m=today.getHours()*60+today.getMinutes();
+  const lbl=isToday?"Today":dayDiff(today,d)===1?"Tomorrow":dayDiff(today,d)===-1?"Yesterday":DAYS[d.getDay()];
+  let html=`<div class="tt-head"><div><h2>${lbl}</h2><p>${longDate(d)}<span class="week">Week ${weekOf(d)}</span></p></div>
+    <div class="seg"><button type="button" id="ttp" aria-label="Previous day"><svg class="i"><use href="#ic-back"/></svg></button><button type="button" id="ttt">Today</button><button type="button" id="ttn" aria-label="Next day"><svg class="i"><use href="#ic-next"/></svg></button></div></div>`;
+  if(!ls.length){
+    const wd=isoWd(d);
+    html+=`<div class="empty">${wd>=6?"No school at the weekend.":"No lessons on this day."}</div>`;
+  } else {
+    html+=`<div class="lessons">`;
+    ls.forEach((l,i)=>{
+      if(i>0){const g=mins(l.start)-mins(ls[i-1].end); if(g>=15) html+=`<div class="gap">${g>=40?"Lunch":"Break"} · ${g} min</div>`;}
+      const s=mins(l.start),e=mins(l.end); let cls="lesson",p="";
+      if(isToday&&s<=m&&m<e){cls+=" now";p=`<i class="p" style="width:${Math.round((m-s)/(e-s)*100)}%"></i>`;}
+      else if(isToday&&m>=e) cls+=" past";
+      const left=isToday&&s<=m&&m<e?`${e-m} min left`:`${e-s} min`;
+      html+=`<div class="${cls}"><div class="t">${l.start}<small>${l.end}</small></div><div class="c" style="background:${colorOf(l.title)}"></div><div class="n">${esc(lessonName(l.title))}<small>${left}${l.location?" · "+esc(l.location):""}</small></div>${p}</div>`;
+    });
+    html+=`</div>`;
+  }
+  v.innerHTML=`<div class="${dir?(dir>0?"slide-l":"slide-r"):""}">${html}</div>`;
+  v.querySelector("#ttp").onclick=()=>shiftDay(-1);
+  v.querySelector("#ttn").onclick=()=>shiftDay(1);
+  v.querySelector("#ttt").onclick=()=>{const t=new Date();const dir=ymd(t)>ymd(ttDay)?1:-1;ttDay=defaultDay();renderTimetable(ymd(t)===ymd(ttDay)?0:dir)};
+}
+let ttDay=new Date();
+function defaultDay(){const t=new Date();const wd=isoWd(t);if(wd>=6){t.setDate(t.getDate()+(8-wd));}return t}
+function shiftDay(n){const d=new Date(ttDay);d.setDate(d.getDate()+n);ttDay=d;renderTimetable(n)}
+function attachDaySwipe(v){
+  let x0=null,y0=0,t0=0;
+  v.addEventListener("touchstart",e=>{const t=e.touches[0];if(t.clientX<30){x0=null;return}x0=t.clientX;y0=t.clientY;t0=Date.now()},{passive:true});
+  v.addEventListener("touchend",e=>{if(x0==null)return;const t=e.changedTouches[0];const dx=t.clientX-x0,dy=t.clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6&&Date.now()-t0<600) shiftDay(dx<0?1:-1); x0=null},{passive:true});
+}
+
+async function open_(id,opts={}){
+  if(busy||!PAGES[id]) return; busy=true;
+  const stage=$("#stage"), hub=$("#hub"), host=$("#host");
+  const swap=!!current;
+  $("#title").textContent=PAGES[id].title;
+  $("#navbar").classList.remove("dim");
+  if(swap){ // page to page: cross-fade the content under the same bar
+    host.style.transition="opacity .18s ease";host.style.opacity="0";await sleep(180);
+  }
+  host.innerHTML="";
+  if(PAGES[id].native){ttDay=defaultDay();renderTimetable(0);}
+  else{$("#spin").classList.add("on");await mountFrame(id);$("#spin").classList.remove("on");}
+  current=id;
+  if(swap){host.style.opacity="1";busy=false;return}
+  if(!opts.noHistory) history.pushState({page:id},"","#"+id);
+  stage.classList.add("moving");
+  void stage.offsetWidth;
+  stage.classList.add("on"); hub.classList.add("back");
+  await sleep(520); busy=false;
+}
+async function close_(opts={}){
+  if(!current||busy) return; busy=true;
+  const stage=$("#stage"), hub=$("#hub");
+  stage.classList.remove("drag");hub.classList.remove("drag");
+  stage.style.transform="";hub.style.transform="";hub.style.filter="";
+  stage.classList.remove("on"); hub.classList.remove("back");
+  current=null;
+  if(!opts.fromPop&&history.state&&history.state.page) history.back();
+  await sleep(520);
+  stage.classList.remove("moving"); $("#host").innerHTML="";
+  renderHub(false);
+  busy=false;
+}
+window.addEventListener("popstate",()=>{if(current) close_({fromPop:true})});
+
+/* Edge swipe back, like a native navigation stack */
+(function(){
+  const edge=$("#edge"), stage=$("#stage"), hub=$("#hub");
+  let x0=0,lastX=0,lastT=0,v=0,active=false;const W=()=>window.innerWidth;
+  edge.addEventListener("touchstart",e=>{if(busy||!current)return;active=true;x0=e.touches[0].clientX;lastX=x0;lastT=performance.now();v=0;
+    stage.classList.add("drag");hub.classList.add("drag")},{passive:true});
+  edge.addEventListener("touchmove",e=>{if(!active)return;const x=e.touches[0].clientX;const now=performance.now();v=(x-lastX)/Math.max(1,now-lastT);lastX=x;lastT=now;
+    const dx=Math.max(0,x-x0),p=Math.min(1,dx/W());stage.style.transform=`translateX(${dx}px)`;
+    hub.style.transform=`translateX(${-28*(1-p)}%)`;hub.style.filter=`brightness(${.62+.38*p})`},{passive:true});
+  const end=()=>{if(!active)return;active=false;const dx=lastX-x0;
+    stage.classList.remove("drag");hub.classList.remove("drag");
+    if(dx>W()*.33||v>.45){close_()}else{stage.style.transform="";hub.style.transform="";hub.style.filter=""}};
+  edge.addEventListener("touchend",end,{passive:true});edge.addEventListener("touchcancel",end,{passive:true});
+})();
+
+$("#back").onclick=()=>close_();
+
+/* Called from inside the pages */
+window.IBApp={
+  open:id=>open_(id),
+  home:()=>close_(),
+  dim:on=>$("#navbar").classList.toggle("dim",!!on)
+};
+
+/* ---------- start ---------- */
+const mk=$("#splash .mk");
+async function boot(){
+  const splash=$("#splash");
+  const t0=performance.now();
+  requestAnimationFrame(()=>{splash.classList.add("in");mk.classList.add("p1")});
+  if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+  try{VAULT=await fetchVault(false)}catch(e){try{VAULT=await fetchVault(true)}catch(e2){VAULT=null}}
+  mk.classList.add("p2");
+  if(VAULT) DATA=await unlockWithStored(VAULT);
+  const wait=Math.max(0,900-(performance.now()-t0)); await sleep(wait);
+  if(!VAULT){showLock("The app could not load its data. Check your connection and open it again.",true);finishSplash();return}
+  if(!DATA){showLock();finishSplash();return}
+  await enter();
+}
+async function enter(){
+  mk.classList.add("p3");
+  renderHub();
+  await sleep(380);
+  finishSplash();
+  $("#lock").hidden=true;
+  document.body.classList.add("ready");
+  const h=(location.hash||"").slice(1);
+  if(h&&PAGES[h]){history.replaceState(null,"",location.pathname+location.search);await sleep(150);open_(h)}
+}
+function finishSplash(){const s=$("#splash");s.classList.add("out");setTimeout(()=>s.remove(),700)}
+function showLock(msg,noForm){
+  const l=$("#lock");l.hidden=false;
+  if(msg) $("#lockmsg").textContent=msg;
+  $("#lockform").style.display=noForm?"none":"";
+}
+$("#lockform").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const code=$("#code").value.trim(); if(!code) return;
+  const btn=$("#unlock");btn.textContent="Unlocking";btn.disabled=true;$("#lockerr").textContent="";
+  try{
+    const raw=await deriveKey(code,VAULT.kdf);
+    DATA=await openVault(VAULT,raw);
+    store.set("ibAppKey",ub64(raw));
+    $("#code").blur();
+    const l=$("#lock");l.style.transition="opacity .35s ease";l.style.opacity="0";
+    renderHub();document.body.classList.add("ready");
+    setTimeout(()=>{l.hidden=true;l.style.opacity=""},360);
+  }catch(err){
+    $("#lockerr").textContent="That passcode didn't work. Check it and try again.";
+    const f=$("#lockform");f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake");
+  }
+  btn.textContent="Unlock";btn.disabled=false;
+});
+
+/* Fresh data when the app comes back to the foreground */
+let lastCheck=Date.now();
+document.addEventListener("visibilitychange",async()=>{
+  if(document.visibilityState!=="visible"||!DATA) return;
+  if(Date.now()-lastCheck<60000){if(!current)renderHub(false);return}
+  lastCheck=Date.now();
+  try{
+    const v=await fetchVault(true);
+    if(v.stamp!==VAULT.stamp){const d=await unlockWithStored(v);if(d){VAULT=v;DATA=d}}
+  }catch(e){}
+  if(!current) renderHub(false);
+});
+setInterval(()=>{if(!current&&DATA&&document.visibilityState==="visible") renderHub(false)},60000);
+
+boot();
+</script>
+</body>
+</html>
